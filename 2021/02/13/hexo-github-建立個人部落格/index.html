@@ -165,18 +165,18 @@
     <section class="markdown-content"><h3 id="事前準備"><a href="#事前準備" class="headerlink" title="事前準備"></a>事前準備</h3><ul>
 <li>安裝 node.js</li>
 </ul>
-<figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">#驗證</span><br><span class="line">node -v</span><br><span class="line">#驗證</span><br><span class="line">npm -v</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#驗證</span></span><br><span class="line">node -v</span><br><span class="line"><span class="comment">#驗證</span></span><br><span class="line">npm -v</span><br></pre></td></tr></table></figure>
 <ul>
 <li>安裝 hexo</li>
 </ul>
-<figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">npm -i hexo-cli -g</span><br><span class="line">#驗證</span><br><span class="line">hexo -v</span><br></pre></td></tr></table></figure>
-<h3 id="初始步驟"><a href="#初始步驟" class="headerlink" title="初始步驟"></a>初始步驟</h3><figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">#建立資料夾</span><br><span class="line"><span class="built_in">mkdir</span> blog</span><br><span class="line">#進入資料夾</span><br><span class="line"><span class="built_in">cd</span> blog</span><br><span class="line">#初始化</span><br><span class="line">hexo init</span><br><span class="line">#啟動server</span><br><span class="line">hexo s</span><br></pre></td></tr></table></figure>
-<h3 id="建立新文章"><a href="#建立新文章" class="headerlink" title="建立新文章"></a>建立新文章</h3><figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">#將文章內容新增後，將路徑移動到 blog</span><br><span class="line">hexo n &quot;new_post&quot;</span><br><span class="line">#清理</span><br><span class="line">hexo clean</span><br><span class="line">#生成文章</span><br><span class="line">hexo g</span><br><span class="line">#重新啟動server</span><br><span class="line">hexo s</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">npm -i hexo-cli -g</span><br><span class="line"><span class="comment">#驗證</span></span><br><span class="line">hexo -v</span><br></pre></td></tr></table></figure>
+<h3 id="初始步驟"><a href="#初始步驟" class="headerlink" title="初始步驟"></a>初始步驟</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#建立資料夾</span></span><br><span class="line">mkdir blog</span><br><span class="line"><span class="comment">#進入資料夾</span></span><br><span class="line"><span class="built_in">cd</span> blog</span><br><span class="line"><span class="comment">#初始化</span></span><br><span class="line">hexo init</span><br><span class="line"><span class="comment">#啟動server</span></span><br><span class="line">hexo s</span><br></pre></td></tr></table></figure>
+<h3 id="建立新文章"><a href="#建立新文章" class="headerlink" title="建立新文章"></a>建立新文章</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#將文章內容新增後，將路徑移動到 blog</span></span><br><span class="line">hexo n <span class="string">&quot;new_post&quot;</span></span><br><span class="line"><span class="comment">#清理</span></span><br><span class="line">hexo clean</span><br><span class="line"><span class="comment">#生成文章</span></span><br><span class="line">hexo g</span><br><span class="line"><span class="comment">#重新啟動server</span></span><br><span class="line">hexo s</span><br></pre></td></tr></table></figure>
 <h3 id="部署到遠端-（以-github-為例）"><a href="#部署到遠端-（以-github-為例）" class="headerlink" title="部署到遠端 （以 github 為例）"></a>部署到遠端 （以 github 為例）</h3><ol>
 <li>建立一個新的 respository  <strong>(name為 yourGithubID.github.io)</strong></li>
 <li>到 blog資料夾底下安裝</li>
 </ol>
-<figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm i hexo-deployer-git</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm i hexo-deployer-git</span><br></pre></td></tr></table></figure>
 <ol start="3">
 <li>修改  <code>blog/_config.xml</code> 裡面的 deployment</li>
 </ol>
@@ -184,7 +184,7 @@
 <ol start="4">
 <li>部署到遠端</li>
 </ol>
-<figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo d</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo d</span><br></pre></td></tr></table></figure>
 <ol start="5">
 <li>輸入 github 帳號密碼</li>
 <li>完成！</li>
@@ -193,7 +193,7 @@
 <li>到 blog資料夾底下</li>
 <li>下載<a target="_blank" rel="noopener" href="https://hexo.io/themes/">主題</a></li>
 </ol>
-<figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git clone https://github.com/litten/hexo-theme-keep.git themes/keep #會放置到themes資料夾底下</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git <span class="built_in">clone</span> https://github.com/litten/hexo-theme-keep.git themes/keep <span class="comment">#會放置到themes資料夾底下</span></span><br></pre></td></tr></table></figure>
 <ol start="3">
 <li>修改  <code>blog/_config.xml</code> 裡面的 theme</li>
 </ol>
@@ -201,15 +201,15 @@
 <ol start="4">
 <li>重新清理及生成</li>
 </ol>
-<figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">hexo clean</span><br><span class="line">hexo g</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">hexo clean</span><br><span class="line">hexo g</span><br></pre></td></tr></table></figure>
 <ol start="5">
 <li>重新啟動server來確認 local端</li>
 </ol>
-<figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo s</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo s</span><br></pre></td></tr></table></figure>
 <ol start="6">
 <li>部署到遠端（GitHub）</li>
 </ol>
-<figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo d</span><br></pre></td></tr></table></figure></section>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo d</span><br></pre></td></tr></table></figure></section>
     <!-- Tags START -->
     
     <!-- Tags END -->
