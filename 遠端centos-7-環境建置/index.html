@@ -10,7 +10,7 @@
   
   <title>
     
-      hexo+github 建立個人部落格 | Elina&#39;s Blog
+      遠端centos 7 環境建置 | Elina&#39;s Blog
     
   </title>
   <link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
@@ -146,8 +146,8 @@
 </header>
 
     <div id="article-banner">
-  <h2>hexo+github 建立個人部落格</h2>
-  <p class="post-date">2021-02-13</p>
+  <h2>遠端centos 7 環境建置</h2>
+  <p class="post-date">2021-03-10</p>
   <div class="arrow-down">
     <a href="javascript:;"></a>
   </div>
@@ -155,55 +155,51 @@
 <main class="app-body flex-box">
   <!-- Article START -->
   <article class="post-article">
-    <section class="markdown-content"><h3 id="事前準備"><a href="#事前準備" class="headerlink" title="事前準備"></a>事前準備</h3><ul>
-<li>安裝 node.js</li>
-</ul>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">node -v</span><br><span class="line">npm -v</span><br></pre></td></tr></table></figure>
+    <section class="markdown-content"><p>透過 ssh 連到主機後</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh 帳號@ip-address</span><br></pre></td></tr></table></figure>
+<h5 id="安裝-wget"><a href="#安裝-wget" class="headerlink" title="安裝 wget"></a>安裝 wget</h5><p>可以先下載 wget 套件方便之後下載其他東西</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum -y install wget</span><br></pre></td></tr></table></figure>
+<p>可能會遇到的問題：</p>
 <ul>
-<li>安裝 hexo</li>
+<li>沒網路 or DNS設定</li>
 </ul>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">npm -i hexo-cli -g</span><br><span class="line">hexo -v <span class="comment">#驗證</span></span><br></pre></td></tr></table></figure>
-<h3 id="初始步驟"><a href="#初始步驟" class="headerlink" title="初始步驟"></a>初始步驟</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">mkdir blog <span class="comment">#建立資料夾</span></span><br><span class="line"><span class="built_in">cd</span> blog <span class="comment">#進入資料夾</span></span><br><span class="line">hexo init <span class="comment">#初始化</span></span><br><span class="line">hexo s <span class="comment">#啟動server</span></span><br></pre></td></tr></table></figure>
-<h3 id="建立新文章"><a href="#建立新文章" class="headerlink" title="建立新文章"></a>建立新文章</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">hexo n <span class="string">&quot;new_post&quot;</span> <span class="comment">#將文章內容新增後，將路徑移動到 blog</span></span><br><span class="line">hexo clean <span class="comment">#清理</span></span><br><span class="line">hexo g <span class="comment">#生成文章</span></span><br><span class="line">hexo s <span class="comment">#重新啟動server</span></span><br></pre></td></tr></table></figure>
-<h3 id="部署到遠端-（以-github-為例）"><a href="#部署到遠端-（以-github-為例）" class="headerlink" title="部署到遠端 （以 github 為例）"></a>部署到遠端 （以 github 為例）</h3><ol>
-<li>建立一個新的 respository  <strong>(name為 yourGithubID.github.io)</strong></li>
-<li>到 blog資料夾底下安裝</li>
-</ol>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm i hexo-deployer-git</span><br></pre></td></tr></table></figure>
-<ol start="3">
-<li>修改  <code>blog/_config.xml</code> 裡面的 deployment</li>
-</ol>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">deploy:</span><br><span class="line">  type: git</span><br><span class="line">  repo: https:&#x2F;&#x2F;github.com&#x2F;yourGithubID&#x2F;yourGithubID.github.io.git</span><br><span class="line">  branch: master</span><br></pre></td></tr></table></figure>
-<ol start="4">
-<li>部署到遠端</li>
-</ol>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo d</span><br></pre></td></tr></table></figure>
-<ol start="5">
-<li>輸入 github 帳號密碼</li>
-<li>完成！</li>
-</ol>
-<h3 id="更換主題"><a href="#更換主題" class="headerlink" title="更換主題"></a>更換主題</h3><ol>
-<li>到 blog資料夾底下</li>
-<li>下載<a target="_blank" rel="noopener" href="https://hexo.io/themes/">主題</a></li>
-</ol>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git <span class="built_in">clone</span> https://github.com/litten/hexo-theme-keep.git themes/keep <span class="comment">#會放置到themes資料夾底下</span></span><br></pre></td></tr></table></figure>
-<ol start="3">
-<li>修改  <code>blog/_config.xml</code> 裡面的 theme</li>
-</ol>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">theme: keep</span><br></pre></td></tr></table></figure>
-<ol start="4">
-<li>重新清理及生成</li>
-</ol>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">hexo clean</span><br><span class="line">hexo g</span><br></pre></td></tr></table></figure>
-<ol start="5">
-<li>重新啟動server來確認 local端</li>
-</ol>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo s</span><br></pre></td></tr></table></figure>
-<ol start="6">
-<li>部署到遠端（GitHub）</li>
-</ol>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo d</span><br></pre></td></tr></table></figure></section>
+<p>解決方法：</p>
+<ul>
+<li>參考 <a target="_blank" rel="noopener" href="https://blog.csdn.net/whatday/article/details/88791582">https://blog.csdn.net/whatday/article/details/88791582</a></li>
+</ul>
+<h5 id="安裝-miniconda"><a href="#安裝-miniconda" class="headerlink" title="安裝 miniconda"></a>安裝 miniconda</h5><p>到官網下載 sh檔</p>
+<ul>
+<li>要先確認主機是 32-bit 還是 64 bit</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">uname -a</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh</span><br></pre></td></tr></table></figure>
+<p>執行 sh檔</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sh Miniconda3-latest-Linux-x86_64.sh</span><br></pre></td></tr></table></figure>
+<p>terminal 重開並確認是否安裝成功</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">conda -V</span><br></pre></td></tr></table></figure>
+<h5 id="安裝-docker"><a href="#安裝-docker" class="headerlink" title="安裝 docker"></a>安裝 docker</h5><p>參考 <a target="_blank" rel="noopener" href="https://docs.docker.com/engine/install/centos/">https://docs.docker.com/engine/install/centos/</a></p>
+<p>先安裝 Docker repository</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo yum install -y yum-utils</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sudo yum-config-manager \</span><br><span class="line">--add-repo \</span><br><span class="line">https://download.docker.com/linux/centos/docker-ce.repo</span><br></pre></td></tr></table></figure>
+<p>安裝 docker engine</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo yum install docker-ce docker-ce-cli containerd.io</span><br></pre></td></tr></table></figure>
+<p>啟動 docker</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo systemctl start docker</span><br></pre></td></tr></table></figure>
+<p>跑 hello-world 來驗證是否成功</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo docker run hello-world</span><br></pre></td></tr></table></figure>
+
+
+</section>
     <!-- Tags START -->
+    
+      <div class="tags">
+        <span>Tags:</span>
+        
+  <a href="/tags#yum, miniconda, docker" >
+    <span class="tag-code">yum, miniconda, docker</span>
+  </a>
+
+      </div>
     
     <!-- Tags END -->
     <!-- NAV START -->
@@ -211,13 +207,13 @@
   <div class="nav-container">
     <!-- reverse left and right to put prev and next in a more logic postition -->
     
-    
-      <a class="nav-right" href="/%E9%81%A0%E7%AB%AFcentos-7-%E7%92%B0%E5%A2%83%E5%BB%BA%E7%BD%AE/">
+      <a class="nav-left" href="/hexo-github-%E5%BB%BA%E7%AB%8B%E5%80%8B%E4%BA%BA%E9%83%A8%E8%90%BD%E6%A0%BC/">
+        <span class="nav-arrow">← </span>
         
-          遠端centos 7 環境建置
+          hexo+github 建立個人部落格
         
-        <span class="nav-arrow"> →</span>
       </a>
+    
     
   </div>
 
@@ -242,7 +238,7 @@
 
 <script>
   (function () {
-    var url = 'http://example.com/hexo-github-建立個人部落格/';
+    var url = 'http://example.com/遠端centos-7-環境建置/';
     var banner = ''
     if (banner !== '' && banner !== 'undefined' && banner !== 'null') {
       $('#article-banner').css({
@@ -297,7 +293,7 @@
     var gitmentConfig = "elina";
     if (gitmentConfig !== 'undefined') {
       var gitment = new Gitment({
-        id: "hexo+github 建立個人部落格",
+        id: "遠端centos 7 環境建置",
         owner: "elina",
         repo: "elina.github.io",
         oauth: {
