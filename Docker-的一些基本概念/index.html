@@ -10,7 +10,7 @@
   
   <title>
     
-      遠端centos 7 環境建置 | Elina&#39;s Blog
+      Docker 的一些基本概念 | Elina&#39;s Blog
     
   </title>
   <link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
@@ -146,7 +146,7 @@
 </header>
 
     <div id="article-banner">
-  <h2>遠端centos 7 環境建置</h2>
+  <h2>Docker 的一些基本概念</h2>
   <p class="post-date">2021-03-10</p>
   <div class="arrow-down">
     <a href="javascript:;"></a>
@@ -155,48 +155,40 @@
 <main class="app-body flex-box">
   <!-- Article START -->
   <article class="post-article">
-    <section class="markdown-content"><p>透過 ssh 連到主機後</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh 帳號@ip-address</span><br></pre></td></tr></table></figure>
-<h5 id="安裝-wget"><a href="#安裝-wget" class="headerlink" title="安裝 wget"></a>安裝 wget</h5><p>可以先下載 wget 套件方便之後下載其他東西</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum -y install wget</span><br></pre></td></tr></table></figure>
-<p>可能會遇到的問題：</p>
+    <section class="markdown-content"><p>參考 <a target="_blank" rel="noopener" href="https://docs.docker.com/get-started/overview/">https://docs.docker.com/get-started/overview/</a></p>
+<p>使用 client-server架構</p>
+<p>Client端執行 docker build、docker pull、docker run等來告訴Docker daemon（Server端）管理執行 Docker images 及 Containers。</p>
+<h5 id="Docker-daemon-dockerd"><a href="#Docker-daemon-dockerd" class="headerlink" title="Docker daemon (dockerd)"></a>Docker daemon (dockerd)</h5><p>Listen Docker API的請求來管理物件 ex. Images, containers, networks和 volumes</p>
+<h5 id="Docker-client-client"><a href="#Docker-client-client" class="headerlink" title="Docker client (client)"></a>Docker client (client)</h5><p>使用像是 docker run的command時，client端會發送到 dockerd來執行，command使用 Docker API，一個client端可以與多個daemon溝通</p>
+<h5 id="IMAGES"><a href="#IMAGES" class="headerlink" title="IMAGES"></a>IMAGES</h5><p>是為了創建Docker container的唯讀模板，通常一個image會基於另一個image。ex. 可以建立一個 <code>ubuntu</code>image 但拿來安裝 apache web server</p>
+<p>也可以建立自己的 image：要先創建一個 Dockerfile來定義步驟，在這個image裡面 Dockerfiles會對每一個 instruction創建個別的 layer，因此當更改 Dockerfile且重建 image時，只有更改的 layer會rebuilt（這部分能讓 images 可以實現 輕巧、小型且快速）</p>
+<h5 id="CONTAINERS"><a href="#CONTAINERS" class="headerlink" title="CONTAINERS"></a>CONTAINERS</h5><p>用image建立出來的執行實例</p>
+<p>可以使用 Docker AP或 CLI來 create, start, stop, move or delete container。每一個 container都是獨立的且是由 image所定義的</p>
+<p>ex. 跑一個叫 <code>ubuntu</code>的 container並運行 <code>/bin/bash</code></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run -i -t ubuntu /bin/bash</span><br></pre></td></tr></table></figure>
+<p>會發生以下幾件事：</p>
 <ul>
-<li>沒網路 or DNS設定</li>
+<li><p>如果本地端沒有 <code>ubuntu</code>image，則 Docker會從 configured registry pull出來，如同跑了 <code>docker pull ubuntu</code></p>
+</li>
+<li><p>Docker 創建了新的 container，如同跑了 <code>docker container create</code></p>
+</li>
+<li><p>Docker 將一個讀寫文件系統分配給 container 作為最後一層layer，允許 container 來創建或修改文件及目錄</p>
+</li>
+<li><p>同時Docker創建一個網路接口來讓container連接到預設網路，包含分配 ip address給container，讓 container可以使用主機的網路連接到外部網路</p>
+</li>
+<li><p>Docker 啟動 container並執行 <code>/bin/bash</code>。</p>
+</li>
+<li><p>可以輸入 <code>exit</code>來終止 <code>/bin/bash</code></p>
+</li>
 </ul>
-<p>解決方法：</p>
-<ul>
-<li>參考 <a target="_blank" rel="noopener" href="https://blog.csdn.net/whatday/article/details/88791582">https://blog.csdn.net/whatday/article/details/88791582</a></li>
-</ul>
-<h5 id="安裝-miniconda"><a href="#安裝-miniconda" class="headerlink" title="安裝 miniconda"></a>安裝 miniconda</h5><p>到官網下載 sh檔</p>
-<ul>
-<li>要先確認主機是 32-bit 還是 64 bit</li>
-</ul>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">uname -a</span><br></pre></td></tr></table></figure>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh</span><br></pre></td></tr></table></figure>
-<p>執行 sh檔</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sh Miniconda3-latest-Linux-x86_64.sh</span><br></pre></td></tr></table></figure>
-<p>terminal 重開並確認是否安裝成功</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">conda -V</span><br></pre></td></tr></table></figure>
-<h5 id="安裝-docker"><a href="#安裝-docker" class="headerlink" title="安裝 docker"></a>安裝 docker</h5><p>參考 <a target="_blank" rel="noopener" href="https://docs.docker.com/engine/install/centos/">https://docs.docker.com/engine/install/centos/</a></p>
-<p>先安裝 Docker repository</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo yum install -y yum-utils</span><br></pre></td></tr></table></figure>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sudo yum-config-manager \</span><br><span class="line">--add-repo \</span><br><span class="line">https://download.docker.com/linux/centos/docker-ce.repo</span><br></pre></td></tr></table></figure>
-<p>安裝 docker engine</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo yum install docker-ce docker-ce-cli containerd.io</span><br></pre></td></tr></table></figure>
-<p>啟動 docker</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo systemctl start docker</span><br></pre></td></tr></table></figure>
-<p>跑 hello-world 來驗證是否成功</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo docker run hello-world</span><br></pre></td></tr></table></figure>
-
-
 </section>
     <!-- Tags START -->
     
       <div class="tags">
         <span>Tags:</span>
         
-  <a href="/tags#yum conda docker" >
-    <span class="tag-code">yum conda docker</span>
+  <a href="/tags#Docker" >
+    <span class="tag-code">Docker</span>
   </a>
 
       </div>
@@ -207,20 +199,13 @@
   <div class="nav-container">
     <!-- reverse left and right to put prev and next in a more logic postition -->
     
-      <a class="nav-left" href="/hexo-github-%E5%BB%BA%E7%AB%8B%E5%80%8B%E4%BA%BA%E9%83%A8%E8%90%BD%E6%A0%BC/">
+      <a class="nav-left" href="/%E9%81%A0%E7%AB%AFcentos-7-%E7%92%B0%E5%A2%83%E5%BB%BA%E7%BD%AE/">
         <span class="nav-arrow">← </span>
         
-          hexo+github 建立個人部落格
+          遠端centos 7 環境建置
         
       </a>
     
-    
-      <a class="nav-right" href="/Docker-%E7%9A%84%E4%B8%80%E4%BA%9B%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5/">
-        
-          Docker 的一些基本概念
-        
-        <span class="nav-arrow"> →</span>
-      </a>
     
   </div>
 
@@ -245,7 +230,7 @@
 
 <script>
   (function () {
-    var url = 'http://example.com/遠端centos-7-環境建置/';
+    var url = 'http://example.com/Docker-的一些基本概念/';
     var banner = ''
     if (banner !== '' && banner !== 'undefined' && banner !== 'null') {
       $('#article-banner').css({
@@ -300,7 +285,7 @@
     var gitmentConfig = "elina";
     if (gitmentConfig !== 'undefined') {
       var gitment = new Gitment({
-        id: "遠端centos 7 環境建置",
+        id: "Docker 的一些基本概念",
         owner: "elina",
         repo: "elina.github.io",
         oauth: {
