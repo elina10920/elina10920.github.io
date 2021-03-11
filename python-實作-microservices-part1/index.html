@@ -10,7 +10,7 @@
   
   <title>
     
-      Docker 的一些基本概念 | Elina&#39;s Blog
+      python 實作 microservices -- part1 | Elina&#39;s Blog
     
   </title>
   <link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
@@ -146,8 +146,8 @@
 </header>
 
     <div id="article-banner">
-  <h2>Docker 的一些基本概念</h2>
-  <p class="post-date">2021-03-10</p>
+  <h2>python 實作 microservices -- part1</h2>
+  <p class="post-date">2021-03-11</p>
   <div class="arrow-down">
     <a href="javascript:;"></a>
   </div>
@@ -155,43 +155,43 @@
 <main class="app-body flex-box">
   <!-- Article START -->
   <article class="post-article">
-    <section class="markdown-content"><p>參考 <a target="_blank" rel="noopener" href="https://docs.docker.com/get-started/overview/">https://docs.docker.com/get-started/overview/</a></p>
-<p>使用 client-server架構</p>
-<p>Client端執行 docker build、docker pull、docker run等來告訴Docker daemon（Server端）管理執行 Docker images 及 Containers。</p>
-<h5 id="Docker-daemon-dockerd"><a href="#Docker-daemon-dockerd" class="headerlink" title="Docker daemon (dockerd)"></a>Docker daemon (dockerd)</h5><p>Listen Docker API的請求來管理物件 ex. Images, containers, networks和 volumes</p>
-<h5 id="Docker-client-client"><a href="#Docker-client-client" class="headerlink" title="Docker client (client)"></a>Docker client (client)</h5><p>使用像是 docker run的command時，client端會發送到 dockerd來執行，command使用 Docker API，一個client端可以與多個daemon溝通</p>
-<h5 id="IMAGES"><a href="#IMAGES" class="headerlink" title="IMAGES"></a>IMAGES</h5><p>是為了創建Docker container的唯讀模板，通常一個image會基於另一個image。ex. 可以建立一個 <code>ubuntu</code>image 但拿來安裝 apache web server</p>
-<p>也可以建立自己的 image：要先創建一個 Dockerfile來定義步驟，在這個image裡面 Dockerfiles會對每一個 instruction創建個別的 layer，因此當更改 Dockerfile且重建 image時，只有更改的 layer會rebuilt（這部分能讓 images 可以實現 輕巧、小型且快速）</p>
-<h5 id="CONTAINERS"><a href="#CONTAINERS" class="headerlink" title="CONTAINERS"></a>CONTAINERS</h5><p>用image建立出來的執行實例</p>
-<p>可以使用 Docker AP或 CLI來 create, start, stop, move or delete container。每一個 container都是獨立的且是由 image所定義的</p>
-<p>ex. 跑一個叫 <code>ubuntu</code>的 container並運行 <code>/bin/bash</code></p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run -i -t ubuntu /bin/bash</span><br></pre></td></tr></table></figure>
-<p>會發生以下幾件事：</p>
+    <section class="markdown-content"><h2 id="參考-https-realpython-com-python-microservices-grpc-best-practices"><a href="#參考-https-realpython-com-python-microservices-grpc-best-practices" class="headerlink" title="參考 https://realpython.com/python-microservices-grpc/#best-practices"></a>參考 <a target="_blank" rel="noopener" href="https://realpython.com/python-microservices-grpc/#best-practices">https://realpython.com/python-microservices-grpc/#best-practices</a></h2><p>有一家網路書店要架設系統，會有兩個 microservices：</p>
 <ul>
-<li><p>如果本地端沒有 <code>ubuntu</code>image，則 Docker會從 configured registry pull出來，如同跑了 <code>docker pull ubuntu</code></p>
+<li>一個是 marketplace，web app 拿來顯示有哪些書本</li>
+<li>另一個是 recommendations，根據不同消費者來推薦感興趣的書本</li>
+</ul>
+<p>消費者透過瀏覽器來查看書本（user -&gt; marketplace）</p>
+<p>網站會依據使用者喜好推薦書本（marketplace -&gt; recommendations）</p>
+<p>接著要來寫這個推薦系統API了！</p>
+<p>Request</p>
+<ul>
+<li>User ID</li>
+<li>Book category</li>
+<li>Max results ：退貨的上限</li>
+</ul>
+<p>Response</p>
+<ul>
+<li>Book ID</li>
+<li>Book title</li>
+</ul>
+<h4 id="Write-Protocol-Buffer"><a href="#Write-Protocol-Buffer" class="headerlink" title="Write Protocol Buffer"></a>Write Protocol Buffer</h4><p>透過 <a target="_blank" rel="noopener" href="https://developers.google.com/protocol-buffers/docs/proto3">protocol buffers</a> 來定義資料的結構規則</p>
+<figure class="highlight protobuf"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//（必要）protocol 資料格式版本，目前有分 proto2 與 proto3，proto3支援更多language，且 proto3 多了 JSON Mapping，支援將 message 轉成 JSON 字串</span></span><br><span class="line">syntax = <span class="string">&quot;proto3&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//（可有可無）可以額外指定 package 避免 message type 因名字一樣產生衝突，但python就可以不用寫 package</span></span><br><span class="line"><span class="keyword">package</span> book;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 可以正式定義 message type 了！</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//定義有哪一些 book categories, 每一個 category 都指定一個 ID</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">enum</span> <span class="title">BookCategory</span> </span>&#123;</span><br><span class="line">    MYSTERY = <span class="number">0</span>;</span><br><span class="line">    SCIENCE_FICTION = <span class="number">1</span>;</span><br><span class="line">    SELF_HELP = <span class="number">2</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 每個message type都是以 message 開頭，在大括號內定義其資料型態與欄位名稱(field)。</span></span><br><span class="line"><span class="comment">//數字為欄位編號，每個欄位都必須指定欄位編號，最小的編號為1開始，最大為 536,870,911</span></span><br><span class="line"><span class="comment">//效能考量：1-15號只需要 1 byte作為編號的儲存容量，建議保留給最常用到的欄位</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 定義 microservice request</span></span><br><span class="line"><span class="class"><span class="keyword">message</span> <span class="title">RecommendationRequest</span> </span>&#123;</span><br><span class="line">    <span class="built_in">int32</span> user_id = <span class="number">1</span>;</span><br><span class="line">    BookCategory category = <span class="number">2</span>;</span><br><span class="line">    <span class="built_in">int32</span> max_results = <span class="number">3</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 定義用於書本推薦的類型</span></span><br><span class="line"><span class="class"><span class="keyword">message</span> <span class="title">BookRecommendation</span> </span>&#123;</span><br><span class="line">    <span class="built_in">int32</span> id = <span class="number">1</span>;</span><br><span class="line">    <span class="built_in">string</span> title = <span class="number">2</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 定義建議的 microservice response</span></span><br><span class="line"><span class="class"><span class="keyword">message</span> <span class="title">RecommendationResponse</span> </span>&#123;</span><br><span class="line">    <span class="keyword">repeated</span> BookRecommendation recommendations = <span class="number">1</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 定義一個叫 Recommend 方法的API，接受一個 request 並返回 response</span></span><br><span class="line"><span class="comment">// rpc代表可以遠端調用這個方法</span></span><br><span class="line"><span class="comment">// microservice name = Recommendations</span></span><br><span class="line"><span class="class"><span class="keyword">service</span> <span class="title">Recommendations</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">rpc</span> Recommend (RecommendationRequest) <span class="keyword">returns</span> (RecommendationResponse)</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h5 id="Compile-protocol-buffer-to-python-language"><a href="#Compile-protocol-buffer-to-python-language" class="headerlink" title="Compile protocol buffer to python language"></a>Compile protocol buffer to python language</h5><p>再使用 protocol buffers 的編譯器產生適用於自己專案程式碼的API</p>
+<p>python 可用 <code>grpcio-tools</code> 編譯 <code>.proto</code>檔</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pip install grpcio-tools</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">python -m grpc_tools.protoc -I ../protobufs --python_out=. \</span><br><span class="line">         --grpc_python_out=. ../protobufs/recommendations.proto</span><br></pre></td></tr></table></figure>
+<ul>
+<li><p>python -m grpc_tools.protoc 執行編譯</p>
 </li>
-<li><p>Docker 創建了新的 container，如同跑了 <code>docker container create</code></p>
+<li><p>-I 告訴編譯器要去哪裡找編譯的文件</p>
 </li>
-<li><p>Docker 將一個讀寫文件系統分配給 container 作為最後一層layer，允許 container 來創建或修改文件及目錄</p>
-</li>
-<li><p>同時Docker創建一個網路接口來讓container連接到預設網路，包含分配 ip address給container，讓 container可以使用主機的網路連接到外部網路</p>
-</li>
-<li><p>Docker 啟動 container並執行 <code>/bin/bash</code>。</p>
-</li>
-<li><p>可以輸入 <code>exit</code>來終止 <code>/bin/bash</code></p>
+<li><p>–python_out= . –grpc_python_out=. 告訴編譯器要在哪裡output python檔</p>
 </li>
 </ul>
+<p>會將 protobufs 資料夾底下的 proto檔 編譯成 python檔～</p>
+<p>(未完待續)</p>
 </section>
     <!-- Tags START -->
-    
-      <div class="tags">
-        <span>Tags:</span>
-        
-  <a href="/tags#Docker" >
-    <span class="tag-code">Docker</span>
-  </a>
-
-      </div>
     
     <!-- Tags END -->
     <!-- NAV START -->
@@ -199,20 +199,13 @@
   <div class="nav-container">
     <!-- reverse left and right to put prev and next in a more logic postition -->
     
-      <a class="nav-left" href="/%E9%81%A0%E7%AB%AFcentos-7-%E7%92%B0%E5%A2%83%E5%BB%BA%E7%BD%AE/">
+      <a class="nav-left" href="/Docker-%E7%9A%84%E4%B8%80%E4%BA%9B%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5/">
         <span class="nav-arrow">← </span>
         
-          遠端centos 7 環境建置
+          Docker 的一些基本概念
         
       </a>
     
-    
-      <a class="nav-right" href="/python-%E5%AF%A6%E4%BD%9C-microservices-part1/">
-        
-          python 實作 microservices -- part1
-        
-        <span class="nav-arrow"> →</span>
-      </a>
     
   </div>
 
@@ -237,7 +230,7 @@
 
 <script>
   (function () {
-    var url = 'http://example.com/Docker-的一些基本概念/';
+    var url = 'http://example.com/python-實作-microservices-part1/';
     var banner = ''
     if (banner !== '' && banner !== 'undefined' && banner !== 'null') {
       $('#article-banner').css({
@@ -292,7 +285,7 @@
     var gitmentConfig = "elina";
     if (gitmentConfig !== 'undefined') {
       var gitment = new Gitment({
-        id: "Docker 的一些基本概念",
+        id: "python 實作 microservices -- part1",
         owner: "elina",
         repo: "elina.github.io",
         oauth: {
