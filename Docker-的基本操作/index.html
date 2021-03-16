@@ -10,7 +10,7 @@
   
   <title>
     
-      pytest自動化測試--快速入門 | Elina&#39;s Blog
+      Docker 的基本操作 | Elina&#39;s Blog
     
   </title>
   <link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
@@ -146,7 +146,7 @@
 </header>
 
     <div id="article-banner">
-  <h2>pytest自動化測試--快速入門</h2>
+  <h2>Docker 的基本操作</h2>
   <p class="post-date">2021-03-16</p>
   <div class="arrow-down">
     <a href="javascript:;"></a>
@@ -155,33 +155,45 @@
 <main class="app-body flex-box">
   <!-- Article START -->
   <article class="post-article">
-    <section class="markdown-content"><h5 id="install"><a href="#install" class="headerlink" title="install"></a>install</h5><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pip install pytest</span><br></pre></td></tr></table></figure>
-<p>要測試的 function 須在前面加上 test</p>
-<p>測試的檔案前面or後面加上 test</p>
-<p><code>pass_test.py</code></p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">test_pass</span>():</span></span><br><span class="line">  <span class="keyword">assert</span> <span class="number">1</span> == <span class="number">1</span></span><br></pre></td></tr></table></figure>
-<p>執行 <code>pass_test.py</code></p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pytest pass_test.py</span><br></pre></td></tr></table></figure>
-<p>如果需要更多資訊，可以加上 <code>-v</code></p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pytest pass_test.py -v</span><br></pre></td></tr></table></figure>
-<p>如果沒有檔案參數， pytest會查看當前目錄和所有子目錄的測試文件（檔案前面or後面有加上test的）並執行</p>
-<p>測試的可能結果：</p>
-<ul>
-<li>PASSED (.)  測試成功</li>
-<li>FAILED (F) 測試失敗</li>
-<li>SKIPPED (s) 測試被跳過，可以用 <code>@pytest.mark.skip()</code>或 <code>@pytest.mark.skipif()</code>修飾器告訴pytest來跳過測試</li>
-<li>xfail (x) 預期測試失敗 <code>@pytest.mark.xfail()</code></li>
-<li>XPASS (X) 測試不應該通過</li>
-<li>ERROR (E) 錯誤</li>
-</ul>
-</section>
+    <section class="markdown-content"><h5 id="顯示-目前有哪些-images"><a href="#顯示-目前有哪些-images" class="headerlink" title="顯示 目前有哪些 images"></a>顯示 目前有哪些 images</h5><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> docker images</span></span><br></pre></td></tr></table></figure>
+<h5 id="啟動-container"><a href="#啟動-container" class="headerlink" title="啟動 container"></a>啟動 container</h5><p>從 nginx (image) 啟動 container</p>
+<p><code>-d</code> 把 container 執行在背景裡</p>
+<p><code>-p</code> 做 port 的 mapping，container 裡的port 80 mapping到 host 的 8080 port</p>
+<p><code>--restart=always</code>如果 container 遇到例外的情況被停掉，docker 會試著重新啟動此 container</p>
+<p><code>--name=registry</code>設定 container 的 name 為 nginx 以及 最後一個參數為 docker image 的 name</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> docker run -d -p 8080:80 --restart=always --name nginx nginx</span></span><br></pre></td></tr></table></figure>
+<h5 id="顯示-啟動了哪些-container"><a href="#顯示-啟動了哪些-container" class="headerlink" title="顯示 啟動了哪些 container"></a>顯示 啟動了哪些 container</h5><p>沒有加上<code>-a</code>的話只會顯示 running 的 container</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> docker ps -a</span></span><br></pre></td></tr></table></figure>
+<h5 id="顯示執行-container-的-log"><a href="#顯示執行-container-的-log" class="headerlink" title="顯示執行 container 的 log"></a>顯示執行 container 的 log</h5><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> docker logs nginx</span></span><br></pre></td></tr></table></figure>
+<h5 id="把-container-刪除掉"><a href="#把-container-刪除掉" class="headerlink" title="把 container 刪除掉"></a>把 container 刪除掉</h5><p><code>-f</code>強制刪除 container</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> docker rm -f nginx</span></span><br></pre></td></tr></table></figure>
+<h5 id="把-docker-image-刪除掉"><a href="#把-docker-image-刪除掉" class="headerlink" title="把 docker image 刪除掉"></a>把 docker image 刪除掉</h5><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> docker rmi nginx</span></span><br></pre></td></tr></table></figure>
+<h5 id="進入-container-操作資料"><a href="#進入-container-操作資料" class="headerlink" title="進入 container 操作資料"></a>進入 container 操作資料</h5><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> docker <span class="built_in">exec</span> -it nginx /bin/bash</span></span><br></pre></td></tr></table></figure>
+<h5 id="離開-container"><a href="#離開-container" class="headerlink" title="離開 container"></a>離開 container</h5><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> <span class="built_in">exit</span></span></span><br></pre></td></tr></table></figure>
+<h5 id="重新啟動-docker-container"><a href="#重新啟動-docker-container" class="headerlink" title="重新啟動 docker container"></a>重新啟動 docker container</h5><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> docker start nginx</span></span><br></pre></td></tr></table></figure>
+<h5 id="停止-docker-container"><a href="#停止-docker-container" class="headerlink" title="停止 docker container"></a>停止 docker container</h5><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> docker stop nginx</span></span><br></pre></td></tr></table></figure>
+<h5 id="匯出-container-讀寫的-layer"><a href="#匯出-container-讀寫的-layer" class="headerlink" title="匯出 container 讀寫的 layer"></a>匯出 container 讀寫的 layer</h5><p>如果把 docker container 刪掉，之前寫入的資料會不見。</p>
+<p>可以使用<code>docker export</code>把 docker container 可讀可寫的那一層 layer 匯出成一個檔案</p>
+<ol>
+<li>先進 container 裡面，新增一個檔案 <code>test.txt</code></li>
+</ol>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> docker <span class="built_in">exec</span> -it nginx /bin/bash</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> <span class="built_in">echo</span> <span class="string">&quot;test&quot;</span> &gt; test.txt</span></span><br></pre></td></tr></table></figure>
+<ol start="2">
+<li>把 container export 成檔案</li>
+</ol>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> docker <span class="built_in">export</span> nginx &gt; nginx.tar</span></span><br></pre></td></tr></table></figure>
+<p>可以將匯出的檔案使用 <code>import</code>匯入進 <code>Docker</code></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> cat nginx.tar | docker import - nginxback</span></span><br></pre></td></tr></table></figure>
+<p>nginxback 為 import 進 docker 的 image name</p>
+<p>可以執行 container 來確認剛剛的 <code>test.txt</code> 是否存在</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> docker run -it nginxback /bin/bash</span></span><br></pre></td></tr></table></figure></section>
     <!-- Tags START -->
     
       <div class="tags">
         <span>Tags:</span>
         
-  <a href="/tags#pytest" >
-    <span class="tag-code">pytest</span>
+  <a href="/tags#Docker" >
+    <span class="tag-code">Docker</span>
   </a>
 
       </div>
@@ -192,20 +204,13 @@
   <div class="nav-container">
     <!-- reverse left and right to put prev and next in a more logic postition -->
     
-      <a class="nav-left" href="/python-%E5%AF%A6%E4%BD%9C-microservices-part4/">
+      <a class="nav-left" href="/pytest%E8%87%AA%E5%8B%95%E5%8C%96%E6%B8%AC%E8%A9%A6-%E5%BF%AB%E9%80%9F%E5%85%A5%E9%96%80/">
         <span class="nav-arrow">← </span>
         
-          python 實作 microservices -- part4
+          pytest自動化測試--快速入門
         
       </a>
     
-    
-      <a class="nav-right" href="/Docker-%E7%9A%84%E5%9F%BA%E6%9C%AC%E6%93%8D%E4%BD%9C/">
-        
-          Docker 的基本操作
-        
-        <span class="nav-arrow"> →</span>
-      </a>
     
   </div>
 
@@ -230,7 +235,7 @@
 
 <script>
   (function () {
-    var url = 'http://example.com/pytest自動化測試-快速入門/';
+    var url = 'http://example.com/Docker-的基本操作/';
     var banner = ''
     if (banner !== '' && banner !== 'undefined' && banner !== 'null') {
       $('#article-banner').css({
@@ -285,7 +290,7 @@
     var gitmentConfig = "elina";
     if (gitmentConfig !== 'undefined') {
       var gitment = new Gitment({
-        id: "pytest自動化測試--快速入門",
+        id: "Docker 的基本操作",
         owner: "elina",
         repo: "elina.github.io",
         oauth: {
