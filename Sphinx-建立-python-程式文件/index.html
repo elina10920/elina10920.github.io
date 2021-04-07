@@ -10,7 +10,7 @@
   
   <title>
     
-      Centos 7 安裝 gRPC command line tool | Elina&#39;s Blog
+      Sphinx 建立 python 程式文件 | Elina&#39;s Blog
     
   </title>
   <link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
@@ -146,8 +146,8 @@
 </header>
 
     <div id="article-banner">
-  <h2>Centos 7 安裝 gRPC command line tool</h2>
-  <p class="post-date">2021-03-17</p>
+  <h2>Sphinx 建立 python 程式文件</h2>
+  <p class="post-date">2021-04-07</p>
   <div class="arrow-down">
     <a href="javascript:;"></a>
   </div>
@@ -155,30 +155,36 @@
 <main class="app-body flex-box">
   <!-- Article START -->
   <article class="post-article">
-    <section class="markdown-content"><p>參考 <a target="_blank" rel="noopener" href="https://github.com/grpc/grpc/blob/master/doc/command_line_tool.md">https://github.com/grpc/grpc/blob/master/doc/command_line_tool.md</a></p>
-<hr>
-<h4 id="Pre-requisites"><a href="#Pre-requisites" class="headerlink" title="Pre-requisites"></a>Pre-requisites</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">yum install -y gcc-c++ autoconf libtool</span><br><span class="line">yum groupinstall -y &quot;Development Tools&quot;</span><br></pre></td></tr></table></figure>
-<h4 id="安裝-cmake-（要升級到-3-）"><a href="#安裝-cmake-（要升級到-3-）" class="headerlink" title="安裝 cmake （要升級到 3+）"></a>安裝 cmake （要升級到 3+）</h4><p>參考 <a target="_blank" rel="noopener" href="https://blog.csdn.net/Anton8801/article/details/94282363">https://blog.csdn.net/Anton8801/article/details/94282363</a></p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> yum info cmake</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> sudo yum remove cmake -y</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> wget https://cmake.org/files/v3.6/cmake-3.6.2.tar.gz</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> tar -zxvf cmake-3.6.2.tar.gz</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> <span class="built_in">cd</span> cmake-3.6.2</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> sudo ./bootstrap --prefix=/usr/<span class="built_in">local</span></span></span><br><span class="line"><span class="meta">$</span><span class="bash"> sudo make</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> sudo make install</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> cmake --version</span></span><br></pre></td></tr></table></figure>
-<h4 id="clone-the-repository"><a href="#clone-the-repository" class="headerlink" title="clone the repository"></a>clone the repository</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> git <span class="built_in">clone</span> https://github.com/grpc/grpc.git</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> <span class="built_in">cd</span> grpc</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> git submodule update --init</span></span><br></pre></td></tr></table></figure>
-<h4 id="build-with-CMake"><a href="#build-with-CMake" class="headerlink" title="build with CMake"></a>build with CMake</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> mkdir -p cmake/build</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> <span class="built_in">cd</span> cmake/build</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> cmake -DgRPC_BUILD_TESTS=ON ../..</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> make grpc_cli</span></span><br></pre></td></tr></table></figure>
-<h5 id="如何使用"><a href="#如何使用" class="headerlink" title="如何使用"></a>如何使用</h5><p>在 build 資料夾底下會有已經build 好的 <code>grpc_cli</code>檔案</p>
-<ul>
-<li><p>列出給定的port 的所有服務</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> ./grpc_cli ls localhost:50051</span></span><br></pre></td></tr></table></figure></li>
-<li><p>列出 某服務的細節</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> ./grpc_cli ls localhost:50051 helloworld.Greeter -l</span></span><br></pre></td></tr></table></figure>
-<p>如果錯誤請先確認 server 是否開著～</p>
-</li>
-</ul>
+    <section class="markdown-content"><h4 id="step1-安裝-sphinx"><a href="#step1-安裝-sphinx" class="headerlink" title="step1 安裝 sphinx"></a>step1 安裝 sphinx</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pip install -U sphinx</span><br></pre></td></tr></table></figure>
+<h4 id="step2-建立-doc-資料夾來存放-sphinx-文件"><a href="#step2-建立-doc-資料夾來存放-sphinx-文件" class="headerlink" title="step2 建立 doc 資料夾來存放 sphinx 文件"></a>step2 建立 doc 資料夾來存放 sphinx 文件</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mkdir doc</span><br></pre></td></tr></table></figure>
+<h4 id="step3-建立-sphinx-專案-會在-doc-資料夾建立-sphinx-文件"><a href="#step3-建立-sphinx-專案-會在-doc-資料夾建立-sphinx-文件" class="headerlink" title="step3 建立 sphinx 專案 (會在 doc 資料夾建立 sphinx 文件)"></a>step3 建立 sphinx 專案 (會在 doc 資料夾建立 sphinx 文件)</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sphinx-quickstart doc</span><br></pre></td></tr></table></figure>
+<h4 id="step4-修改-doc-source-conf-py"><a href="#step4-修改-doc-source-conf-py" class="headerlink" title="step4 修改 doc/source/conf.py"></a>step4 修改 <strong>doc/source/conf.py</strong></h4><p>將註解拿掉</p>
+<p>path 路徑加入的是能讓 sphinx 讀取到 python 檔的位置</p>
+<p>（在此假設 python 檔案放在 src 資料夾底下）</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> os</span><br><span class="line"><span class="keyword">import</span> sys</span><br><span class="line">sys.path.insert(<span class="number">0</span>, os.path.abspath(<span class="string">&#x27;../../src&#x27;</span>))</span><br></pre></td></tr></table></figure>
+<p>修改 extensions</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">extensions = [<span class="string">&#x27;sphinx.ext.autodoc&#x27;</span>, <span class="string">&#x27;sphinx.ext.napoleon&#x27;</span>]</span><br></pre></td></tr></table></figure>
+<p>sphinx.ext.autodoc : 自動抓取路徑檔案</p>
+<p>sphinx.ext.napoleon : docstring 使用 google style</p>
+<h4 id="step5-編輯-doc-source-index-rst"><a href="#step5-編輯-doc-source-index-rst" class="headerlink" title="step5 編輯 doc/source/index.rst"></a>step5 編輯 <strong>doc/source/index.rst</strong></h4><p>index.rst 為預設首頁，加入索引名稱 Example</p>
+<p>index.rst</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">.. title documentation master file, created by</span><br><span class="line">   sphinx-quickstart on Tue Apr  6 09:09:08 2021.</span><br><span class="line">   You can adapt this file completely to your liking, but it should at least</span><br><span class="line">   contain the root &#96;toctree&#96; directive.</span><br><span class="line"></span><br><span class="line">Welcome to title&#39;s documentation!</span><br><span class="line">&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;</span><br><span class="line"></span><br><span class="line">.. toctree::</span><br><span class="line">   :maxdepth: 2</span><br><span class="line">   :caption: Contents:</span><br><span class="line"></span><br><span class="line">   Example</span><br></pre></td></tr></table></figure>
+<h4 id="step6-在-doc-source-目錄底下建立一個-Example-rst-文件"><a href="#step6-在-doc-source-目錄底下建立一個-Example-rst-文件" class="headerlink" title="step6 在**doc/source/**目錄底下建立一個 Example.rst 文件"></a>step6 在**doc/source/**目錄底下建立一個 Example.rst 文件</h4><p>Example.rst</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">example title for your documentation</span><br><span class="line">&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;</span><br><span class="line"></span><br><span class="line">.. automodule:: Example</span><br><span class="line">   :members:</span><br><span class="line">   :noindex:</span><br></pre></td></tr></table></figure>
+<p>====== 上面是放標題名稱</p>
+<p>.. automodule:: Example 會自動抓取在 src 資料夾底下的檔名 Example</p>
+<p>:members: 程式檔裡面的 class 名稱或 function 名稱，可以選擇不填</p>
+<h4 id="step7-cd-到-doc-目錄底下"><a href="#step7-cd-到-doc-目錄底下" class="headerlink" title="step7 cd 到 doc 目錄底下"></a>step7 cd 到 doc 目錄底下</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">make html</span><br></pre></td></tr></table></figure>
+<p>就會 build 出 html 檔</p>
+<p>預設首頁為 index.html</p>
 </section>
     <!-- Tags START -->
     
       <div class="tags">
         <span>Tags:</span>
         
-  <a href="/tags#gRPC CLI, Centos 7" >
-    <span class="tag-code">gRPC CLI, Centos 7</span>
+  <a href="/tags#sphinx" >
+    <span class="tag-code">sphinx</span>
   </a>
 
       </div>
@@ -189,20 +195,13 @@
   <div class="nav-container">
     <!-- reverse left and right to put prev and next in a more logic postition -->
     
-      <a class="nav-left" href="/gRPC-in-python-Quick-Start/">
+      <a class="nav-left" href="/Centos-7-%E5%AE%89%E8%A3%9D-gRPC-command-line-tool/">
         <span class="nav-arrow">← </span>
         
-          gRPC in python Quick Start
+          Centos 7 安裝 gRPC command line tool
         
       </a>
     
-    
-      <a class="nav-right" href="/Sphinx-%E5%BB%BA%E7%AB%8B-python-%E7%A8%8B%E5%BC%8F%E6%96%87%E4%BB%B6/">
-        
-          Sphinx 建立 python 程式文件
-        
-        <span class="nav-arrow"> →</span>
-      </a>
     
   </div>
 
@@ -227,7 +226,7 @@
 
 <script>
   (function () {
-    var url = 'http://example.com/Centos-7-安裝-gRPC-command-line-tool/';
+    var url = 'http://example.com/Sphinx-建立-python-程式文件/';
     var banner = ''
     if (banner !== '' && banner !== 'undefined' && banner !== 'null') {
       $('#article-banner').css({
@@ -282,7 +281,7 @@
     var gitmentConfig = "elina";
     if (gitmentConfig !== 'undefined') {
       var gitment = new Gitment({
-        id: "Centos 7 安裝 gRPC command line tool",
+        id: "Sphinx 建立 python 程式文件",
         owner: "elina",
         repo: "elina.github.io",
         oauth: {
