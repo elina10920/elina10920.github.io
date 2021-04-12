@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+  <meta name="description" content="yanm1ng&#39;s blog">
+  <meta name="keyword" content="hexo-theme, vuejs">
+  
+    <link rel="shortcut icon" href="/css/images/logo.png">
+  
+  <title>
+    
+      Docker 筆記 | Elina&#39;s Blog
+    
+  </title>
+  <link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+  <link href="//cdnjs.cloudflare.com/ajax/libs/nprogress/0.2.0/nprogress.min.css" rel="stylesheet">
+  <link href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/tomorrow.min.css" rel="stylesheet">
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/css/plugins/gitment.css">
+
+  
+  <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/geopattern/1.2.3/js/geopattern.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/nprogress/0.2.0/nprogress.min.js"></script>
+  
+  
+    
+<script src="/js/gitment.js"></script>
+
+  
+  
+  
+    <!-- MathJax support START -->
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <!-- MathJax support END -->
+  
+
+
+  
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-CH2MB759BF"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+    gtag('config', 'G-CH2MB759BF');
+    </script>
+
+<meta name="generator" content="Hexo 5.3.0"></head>
+<div class="wechat-share">
+  <img src="/css/images/logo.png" />
+</div>
+
+  <body>
+    <header class="header fixed-header">
+  <div class="header-container">
+    <a class="home-link" href="/">
+      <div class="logo"></div>
+      <span>Elina's Blog</span>
+    </a>
+    <ul class="right-list">
+      
+        <li class="list-item">
+          
+            <a href="/" class="item-link">Home</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="/tags/" class="item-link">Tags</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="/archives/" class="item-link">Archives</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="/about/" class="item-link">About</a>
+          
+        </li>
+      
+    </ul>
+    <div class="menu">
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+    </div>
+    <div class="menu-mask">
+      <ul class="menu-list">
+        
+          <li class="menu-item">
+            
+              <a href="/" class="menu-link">Home</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="/tags/" class="menu-link">Tags</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="/archives/" class="menu-link">Archives</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="/about/" class="menu-link">About</a>
+            
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</header>
+
+    <div id="article-banner">
+  <h2>Docker 筆記</h2>
+  <p class="post-date">2021-04-12</p>
+  <div class="arrow-down">
+    <a href="javascript:;"></a>
+  </div>
+</div>
+<main class="app-body flex-box">
+  <!-- Article START -->
+  <article class="post-article">
+    <section class="markdown-content"><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> docker run -d -p 6001:6379 --name container_name &lt;image_name&gt;</span></span><br></pre></td></tr></table></figure>
+<p>Docker 會自動去抓 docker hub 的 image 並 pull 下來</p>
+<p><strong>-d</strong> 背景執行</p>
+<p><strong>-p 6001:6379</strong> local host port 6001 會 binding container port 6379</p>
+<ul>
+<li><p>Host machine 的 port 不能重複</p>
+</li>
+<li><p>但是 container 的 port 可以 （container 彼此是獨立的）</p>
+<p>Host port 3000 -&gt; container port 3000</p>
+<p>Host port 3001 -&gt; container port 3000</p>
+</li>
+</ul>
+<p><strong>–name</strong> 幫 container 取名</p>
+<p>注意：每次下 docker run 就會從 image 新建一個 container !</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> docker ps -a</span></span><br></pre></td></tr></table></figure>
+<p>顯示所有的 container</p>
+<p>如果 container crash 掉了要 restart container :</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> docker stop &lt;container_id&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="meta">$</span><span class="bash"> docker start &lt;container_id&gt;</span> </span><br></pre></td></tr></table></figure>
+
+
+<h4 id="debug-container"><a href="#debug-container" class="headerlink" title="debug container"></a>debug container</h4><p>方法一</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> docker logs &lt;container_id or container_name&gt; | tail</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> docker logs &lt;container_id or container_name&gt; -f</span></span><br></pre></td></tr></table></figure>
+<p><strong>tail</strong> 看最後一部分的 log</p>
+<p><strong>-f</strong> 監看 the log </p>
+<p>方法二</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> docker <span class="built_in">exec</span> -it &lt;container_id or container_name&gt; /bin/bash</span></span><br></pre></td></tr></table></figure>
+<p><strong>-it</strong> interactive the terminal</p>
+<h4 id="docker-compose"><a href="#docker-compose" class="headerlink" title="docker compose"></a>docker compose</h4><ul>
+<li>讓 docker run 更簡單</li>
+</ul>
+<p>原本的 docker run command：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">docker run -d \</span><br><span class="line">--name mongodb \</span><br><span class="line">-p 27017:27017 \</span><br><span class="line">-e MONGO-INITDB_ROOT_USERNAME = admin \</span><br><span class="line">-e MONGO-INITDB_ROOT_PASSWORD = password \</span><br><span class="line">--net mongo-network \</span><br><span class="line">mongo</span><br><span class="line"></span><br><span class="line">docker run -d \</span><br><span class="line">--name mongo-express \</span><br><span class="line">-p 8080:8080 \</span><br><span class="line"></span><br><span class="line">-e ME_CONFIG_MONGODB_ADMINUSERNAME = admin \</span><br><span class="line">-e ME_CONFIG_MONGODB_ADMINPASSWORD = password \</span><br><span class="line">-e ME_CONFIG_MONGODB_SERVER = mongodb \</span><br><span class="line">--net mongo-network \</span><br><span class="line">mongo-express</span><br></pre></td></tr></table></figure>
+<p>可以簡化成：</p>
+<p>mongo-docker-compose.yaml （不用另外設定 network）</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">version:&#x27;3&#x27;</span></span><br><span class="line"><span class="attr">services:</span></span><br><span class="line">	<span class="attr">mongodb:</span></span><br><span class="line">		<span class="string">image:mongo</span></span><br><span class="line">		<span class="attr">ports:</span></span><br><span class="line">		 <span class="number">-27017</span><span class="string">:27017</span></span><br><span class="line">		<span class="attr">environment:</span></span><br><span class="line">		 <span class="bullet">-</span> <span class="string">MONGO-INITDB_ROOT_USERNAME=admin</span></span><br><span class="line">		 <span class="bullet">-</span> <span class="string">MONGO-INITDB_ROOT_PASSWORD=password</span></span><br><span class="line">	<span class="attr">mongo-express:</span></span><br><span class="line">			<span class="attr">image:</span> <span class="string">mongo-express</span></span><br><span class="line">			<span class="attr">ports:</span></span><br><span class="line">			 <span class="bullet">-</span> <span class="number">8080</span><span class="string">:8081</span></span><br><span class="line">			<span class="attr">environment:</span></span><br><span class="line">			 <span class="bullet">-</span> <span class="string">ME_CONFIG_MONGODB_ADMINUSERNAME=admin</span></span><br><span class="line">			 <span class="bullet">-</span> <span class="string">ME_CONFIG_MONGODB_ADMINPASSWORD=password</span></span><br><span class="line">			 <span class="bullet">-</span> <span class="string">ME_CONFIG_MONGODB_SERVER=mongodb</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> docker-compose -f mongo-docker-compose.yaml up -d</span></span><br></pre></td></tr></table></figure>
+<p>to start all containers</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> docker-compose -f mongo-docker-compose.yaml down</span></span><br></pre></td></tr></table></figure>
+<p>to stop all containers</p>
+<p>注意：如果重啟 container ，資料都會消失</p>
+<p>解決辦法： docker volumes 可以讓 data persistence !!!</p>
+<h4 id="Dockerfile-build-own-Docker-Image"><a href="#Dockerfile-build-own-Docker-Image" class="headerlink" title="Dockerfile - build own Docker Image"></a>Dockerfile - build own Docker Image</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> docker build -t &lt;image_name&gt; .</span></span><br></pre></td></tr></table></figure>
+<p><strong>.</strong> : location of Dockerfile</p>
+<p>一旦調整了 Dockerfile，一定要 rebuild image !</p>
+<h4 id="Image-Naming-in-Docker-registries"><a href="#Image-Naming-in-Docker-registries" class="headerlink" title="Image Naming in Docker registries"></a>Image Naming in Docker registries</h4><ul>
+<li><p>In DockerHub (for pubilc)</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> docker push mongo:4.2</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> docker pull mongo:4.2</span></span><br></pre></td></tr></table></figure></li>
+<li><p>In AWS ECR (for private)</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> docker push 520697001743.dkr.ecr.eu-central-1.amazonaws.com/my-app:1.0</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> docker pull 520697001743.dkr.ecr.eu-central-1.amazonaws.com/my-app:1.0</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">要先 login</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> docker login</span></span><br></pre></td></tr></table></figure>
+<p>docker tag = rename the image</p>
+</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> docker tag &lt;image want to rename&gt; &lt;new name of image&gt;</span></span><br></pre></td></tr></table></figure>
+
+
+<h4 id="Docker-Volumes"><a href="#Docker-Volumes" class="headerlink" title="Docker Volumes"></a>Docker Volumes</h4><ul>
+<li>Folder in physical host file system is mounted into the virtual file system of Docker</li>
+</ul>
+<p>3 volume types （第三種最常用）</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> docker run -v /home/mount/data:/var/lib/mysql/data</span></span><br></pre></td></tr></table></figure>
+<p><strong>-v</strong> host_directory:container_directory</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> docker run -v /var/lib/mysql/data</span></span><br></pre></td></tr></table></figure>
+<p>對每個 container 指定某個資料夾被自動 mounted</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> docker run -v &lt;name&gt;:/var/lib/mysql/data</span></span><br></pre></td></tr></table></figure>
+<p>給在 container 被 mounted 的資料夾取名，就不用記住 path了</p>
+<p>docker-compose.yaml</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">version:&#x27;3&#x27;</span></span><br><span class="line"><span class="attr">services:</span></span><br><span class="line">	<span class="attr">mongodb:</span></span><br><span class="line">		<span class="string">image:mongo</span></span><br><span class="line">		<span class="attr">ports:</span></span><br><span class="line">		 <span class="number">-27017</span><span class="string">:27017</span></span><br><span class="line">		<span class="attr">environment:</span></span><br><span class="line">		 <span class="bullet">-</span> <span class="string">MONGO-INITDB_ROOT_USERNAME=admin</span></span><br><span class="line">		 <span class="bullet">-</span> <span class="string">MONGO-INITDB_ROOT_PASSWORD=password</span></span><br><span class="line">		<span class="attr">volumes:</span></span><br><span class="line">		 <span class="bullet">-</span> <span class="string">mongo-data:/data/db</span></span><br><span class="line">	<span class="attr">mongo-express:</span></span><br><span class="line">			<span class="attr">image:</span> <span class="string">mongo-express</span></span><br><span class="line">			<span class="attr">ports:</span></span><br><span class="line">			 <span class="bullet">-</span> <span class="number">8080</span><span class="string">:8081</span></span><br><span class="line">			<span class="attr">environment:</span></span><br><span class="line">			 <span class="bullet">-</span> <span class="string">ME_CONFIG_MONGODB_ADMINUSERNAME=admin</span></span><br><span class="line">			 <span class="bullet">-</span> <span class="string">ME_CONFIG_MONGODB_ADMINPASSWORD=password</span></span><br><span class="line">			 <span class="bullet">-</span> <span class="string">ME_CONFIG_MONGODB_SERVER=mongodb</span></span><br><span class="line"><span class="attr">volumes:</span></span><br><span class="line">  <span class="attr">mongo-data:</span></span><br><span class="line">    <span class="attr">driver:</span> <span class="string">local</span></span><br></pre></td></tr></table></figure>
+<p>Restart compose</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> docker-compose -f docker-compose.yaml up</span></span><br></pre></td></tr></table></figure>
+<h5 id="Docker-volume-locations"><a href="#Docker-volume-locations" class="headerlink" title="Docker volume locations"></a>Docker volume locations</h5><p>for windows:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">C:\ProgramData\docker\volumes</span><br></pre></td></tr></table></figure>
+<p>for linux:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;var&#x2F;lib&#x2F;docker&#x2F;volumes</span><br></pre></td></tr></table></figure>
+<p>for macOS:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;var&#x2F;lib&#x2F;docker&#x2F;volumes</span><br></pre></td></tr></table></figure>
+
+
+<h5 id="close-the-screen-in-container"><a href="#close-the-screen-in-container" class="headerlink" title="close the screen in container"></a>close the screen in container</h5><p>for macOS:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Ctrl + a + k</span><br></pre></td></tr></table></figure>
+</section>
+    <!-- Tags START -->
+    
+      <div class="tags">
+        <span>Tags:</span>
+        
+  <a href="/tags#Docker" >
+    <span class="tag-code">Docker</span>
+  </a>
+
+      </div>
+    
+    <!-- Tags END -->
+    <!-- NAV START -->
+    
+  <div class="nav-container">
+    <!-- reverse left and right to put prev and next in a more logic postition -->
+    
+      <a class="nav-left" href="/conda-activate-env-not-working/">
+        <span class="nav-arrow">← </span>
+        
+          conda activate env not working
+        
+      </a>
+    
+    
+  </div>
+
+    <!-- NAV END -->
+    <!-- 打赏 START -->
+    <!--  -->
+    <!-- 打赏 END -->
+    <!-- 二维码 START -->
+    <!-- 
+    <!-- 二维码 END -->
+    <!--  -->
+      <!-- Gitment START -->
+      <!-- <div id="comments"></div> -->
+      <!-- Gitment END -->
+    <!--  -->
+  </article>
+  <!-- Article END -->
+  <!-- Catalog START -->
+  <!--  -->
+  <!-- Catalog END -->
+</main>
+
+<script>
+  (function () {
+    var url = 'http://example.com/Docker-筆記/';
+    var banner = ''
+    if (banner !== '' && banner !== 'undefined' && banner !== 'null') {
+      $('#article-banner').css({
+        'background-image': 'url(' + banner + ')'
+      })
+    } else {
+      $('#article-banner').geopattern(url)
+    }
+    $('.header').removeClass('fixed-header')
+
+    // error image
+    $(".markdown-content img").on('error', function() {
+      $(this).attr('src', 'http://file.muyutech.com/error-img.png')
+      $(this).css({
+        'cursor': 'default'
+      })
+    })
+
+    // zoom image
+    $(".markdown-content img").on('click', function() {
+      var src = $(this).attr('src')
+      if (src !== 'http://file.muyutech.com/error-img.png') {
+        var imageW = $(this).width()
+        var imageH = $(this).height()
+
+        var zoom = ($(window).width() * 0.95 / imageW).toFixed(2)
+        zoom = zoom < 1 ? 1 : zoom
+        zoom = zoom > 2 ? 2 : zoom
+        var transY = (($(window).height() - imageH) / 2).toFixed(2)
+
+        $('body').append('<div class="image-view-wrap"><div class="image-view-inner"><img src="'+ src +'" /></div></div>')
+        $('.image-view-wrap').addClass('wrap-active')
+        $('.image-view-wrap img').css({
+          'width': `${imageW}`,
+          'transform': `translate3d(0, ${transY}px, 0) scale3d(${zoom}, ${zoom}, 1)`
+        })
+        $('html').css('overflow', 'hidden')
+
+        $('.image-view-wrap').on('click', function() {
+          $(this).remove()
+          $('html').attr('style', '')
+        })
+      }
+    })
+  })();
+</script>
+
+
+
+
+  <script>
+    var gitmentConfig = "elina";
+    if (gitmentConfig !== 'undefined') {
+      var gitment = new Gitment({
+        id: "Docker 筆記",
+        owner: "elina",
+        repo: "elina.github.io",
+        oauth: {
+          client_id: "",
+          client_secret: ""
+        },
+        theme: {
+          render(state, instance) {
+            const container = document.createElement('div')
+            container.lang = "en-US"
+            container.className = 'gitment-container gitment-root-container'
+            container.appendChild(instance.renderHeader(state, instance))
+            container.appendChild(instance.renderEditor(state, instance))
+            container.appendChild(instance.renderComments(state, instance))
+            container.appendChild(instance.renderFooter(state, instance))
+            return container;
+          }
+        }
+      })
+      gitment.render(document.getElementById('comments'))
+    }
+  </script>
+
+
+
+
+    <div class="scroll-top">
+  <span class="arrow-icon"></span>
+</div>
+    <footer class="app-footer">
+  <p class="copyright">
+    &copy; 2021 | Proudly powered by <a href="https://hexo.io" target="_blank">Hexo</a>
+    <br>
+    Theme by <a target="_blank" rel="noopener" href="https://github.com/yanm1ng">yanm1ng</a>
+  </p>
+</footer>
+
+<script>
+  function async(u, c) {
+    var d = document, t = 'script',
+      o = d.createElement(t),
+      s = d.getElementsByTagName(t)[0];
+    o.src = u;
+    if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+    s.parentNode.insertBefore(o, s);
+  }
+</script>
+<script>
+  async("//cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.min.js", function(){
+    FastClick.attach(document.body);
+  })
+</script>
+
+<script>
+  var hasLine = 'true';
+  async("//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js", function(){
+    $('figure pre').each(function(i, block) {
+      var figure = $(this).parents('figure');
+      if (hasLine === 'false') {
+        figure.find('.gutter').hide();
+      }
+      var lang = figure.attr('class').split(' ')[1] || 'code';
+      var codeHtml = $(this).html();
+      var codeTag = document.createElement('code');
+      codeTag.className = lang;
+      codeTag.innerHTML = codeHtml;
+      $(this).attr('class', '').empty().html(codeTag);
+      figure.attr('data-lang', lang.toUpperCase());
+      hljs.highlightBlock(block);
+    });
+  })
+</script>
+<!-- Baidu Tongji -->
+
+
+<script src="/js/script.js"></script>
+
+  </body>
+</html>
