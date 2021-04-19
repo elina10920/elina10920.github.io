@@ -155,7 +155,7 @@
 <main class="app-body flex-box">
   <!-- Article START -->
   <article class="post-article">
-    <section class="markdown-content"><p>使用 <strong>stash 封存</strong></p>
+    <section class="markdown-content"><p>方法一：使用 <strong>stash 封存</strong></p>
 <p>先將 local端修改過的檔案封存到 stash 1後</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> git add .</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> git stash save <span class="string">&#x27;stash 1&#x27;</span></span></span><br></pre></td></tr></table></figure>
 <p>查詢目前有哪些 stash</p>
@@ -163,7 +163,10 @@
 <p>再將 remote 的資料 pull 下來</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> git pull</span></span><br></pre></td></tr></table></figure>
 <p>接著就可以將 stash 資料 pop 回來</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> git stash pop stash@&#123;0&#125;</span></span><br></pre></td></tr></table></figure></section>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> git stash pop stash@&#123;0&#125;</span></span><br></pre></td></tr></table></figure>
+<p>方法二：直接覆蓋掉本地端修改</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> git reset --hard</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> git pull</span></span><br></pre></td></tr></table></figure>
+</section>
     <!-- Tags START -->
     
     <!-- Tags END -->
