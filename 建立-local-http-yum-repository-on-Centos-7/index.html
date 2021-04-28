@@ -209,8 +209,8 @@
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ yum repolist</span><br><span class="line">$ yum repolist all</span><br></pre></td></tr></table></figure>
 <p>清除 yum cache 和 update the repository lists</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ yum clean all</span><br><span class="line">$ yum update</span><br></pre></td></tr></table></figure>
-<p>也可以直接從 local 指定 repository 來安裝 packages</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ yum install --disablerepo=<span class="string">&quot;*&quot;</span> --enablerepo=<span class="string">&quot;local-repos&quot;</span> httpd</span><br></pre></td></tr></table></figure>
+<p>也可以直接從 local 指定 repository 來安裝 packages<br>ex. local-base 裡面的 ‘httpd’ packages</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ yum install --disablerepo=<span class="string">&quot;*&quot;</span> --enablerepo=<span class="string">&quot;local-base&quot;</span> httpd</span><br></pre></td></tr></table></figure>
 </section>
     <!-- Tags START -->
     
